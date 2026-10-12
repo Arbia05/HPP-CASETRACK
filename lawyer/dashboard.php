@@ -5,7 +5,7 @@ requireRole('lawyer');
 $user = currentUser();
 $db   = getDB();
 
-$myCases = $db->prepare("SELECT c.*, u.name AS client_name FROM cases c JOIN users u ON c.client_id=u.id JOIN case_team ct ON c.id=ct.case_id WHERE ct.lawyer_id=? AND c.status='active' ORDER BY c.updated_at DESC");
+$myCases = $db->prepare("SELECT c.*, c.case_number AS reference_number, u.name AS client_name FROM cases c JOIN users u ON c.client_id=u.id JOIN case_team ct ON c.id=ct.case_id WHERE ct.lawyer_id=? AND c.status='active' ORDER BY c.updated_at DESC");
 $myCases->execute([$user['id']]); $cases = $myCases->fetchAll();
 
 $reimbPending = $db->prepare("SELECT COUNT(*) FROM reimbursements WHERE submitted_by=? AND status='pending'");
@@ -121,7 +121,7 @@ include __DIR__ . '/../includes/header.php';
         <div class="space-y-3">
           <?php foreach ($updates as $u): ?>
           <div class="py-2 border-b border-[#edeeef] last:border-0">
-            <p class="text-xs font-semibold text-[#800000]"><?= sanitize($u['status_label']) ?></p>
+            <p class="text-xs font-semibold text-[#800000]"><?= sanitize($u['activity_type']) ?></p>
             <p class="text-xs text-[#5a413d] truncate"><?= sanitize($u['case_title']) ?></p>
             <p class="text-[10px] text-[#8e706c]"><?= timeAgo($u['created_at']) ?></p>
           </div>

@@ -6,12 +6,12 @@ $user = currentUser();
 $db   = getDB();
 
 $caseId = (int)($_GET['case_id'] ?? 0);
-$cases  = $db->prepare("SELECT c.*, u.name AS client_name FROM cases c JOIN users u ON c.client_id=u.id JOIN case_team ct ON c.id=ct.case_id WHERE ct.lawyer_id=? AND c.status='active' ORDER BY c.title");
+$cases  = $db->prepare("SELECT c.*, c.case_number AS reference_number, u.name AS client_name FROM cases c JOIN users u ON c.client_id=u.id JOIN case_team ct ON c.id=ct.case_id WHERE ct.lawyer_id=? AND c.status='active' ORDER BY c.title");
 $cases->execute([$user['id']]); $myCases = $cases->fetchAll();
 
 // If PJ, also show cases where they are PJ
 if ($user['role'] === 'pengacara_pj') {
-    $pjCases = $db->prepare("SELECT c.*, u.name AS client_name FROM cases c JOIN users u ON c.client_id=u.id WHERE c.assigned_pj_id=? AND c.status='active'");
+    $pjCases = $db->prepare("SELECT c.*, c.case_number AS reference_number, u.name AS client_name FROM cases c JOIN users u ON c.client_id=u.id WHERE c.assigned_pj_id=? AND c.status='active'");
     $pjCases->execute([$user['id']]);
     $pjList = $pjCases->fetchAll();
     $myCases = array_merge($myCases, $pjList);
@@ -222,7 +222,7 @@ include __DIR__ . '/../includes/header.php';
           <div class="flex gap-3 py-2 border-b border-[#edeeef] last:border-0">
             <div class="w-2 h-2 rounded-full bg-[#800000] mt-2 shrink-0"></div>
             <div>
-              <p class="text-xs font-semibold text-[#800000]"><?= sanitize($ru['status_label']) ?></p>
+              <p class="text-xs font-semibold text-[#800000]"><?= sanitize($ru['activity_type']) ?></p>
               <p class="text-xs text-[#5a413d] truncate"><?= sanitize($ru['case_title']) ?></p>
               <p class="text-[10px] text-[#8e706c]"><?= timeAgo($ru['created_at']) ?></p>
             </div>

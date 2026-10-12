@@ -6,11 +6,11 @@ $user = currentUser();
 $db   = getDB();
 
 $unpaidCount    = $db->query("SELECT COUNT(*) FROM invoices WHERE status='unpaid'")->fetchColumn();
-$pendingVerif   = $db->query("SELECT COUNT(*) FROM invoices WHERE status='pending_verification'")->fetchColumn();
+$pendingVerif   = $db->query("SELECT COUNT(*) FROM invoices WHERE status='verification'")->fetchColumn();
 $paidTotal      = $db->query("SELECT COALESCE(SUM(amount),0) FROM invoices WHERE status='paid'")->fetchColumn();
 $reimbPending   = $db->query("SELECT COUNT(*) FROM reimbursements WHERE status='pending'")->fetchColumn();
 
-$recentInvoices = $db->query("SELECT i.*, u.name AS client_name, c.title AS case_title, c.case_number AS reference_number FROM invoices i JOIN users u ON i.client_id=u.id JOIN cases c ON i.case_id=c.id ORDER BY i.created_at DESC LIMIT 8")->fetchAll();
+$recentInvoices = $db->query("SELECT i.*, u.name AS client_name, c.title AS case_title, c.case_number AS reference_number FROM invoices i JOIN users u ON i.client_id=u.id LEFT JOIN cases c ON i.case_id=c.id ORDER BY i.created_at DESC LIMIT 8")->fetchAll();
 
 $pageTitle = 'Dashboard Finance';
 $base = getBasePath();

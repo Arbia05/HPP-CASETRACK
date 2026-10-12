@@ -9,8 +9,8 @@ $db   = getDB();
 $newComplaints    = $db->query("SELECT COUNT(*) FROM complaints WHERE status='new'")->fetchColumn();
 $pendingComplaints= $db->query("SELECT COUNT(*) FROM complaints WHERE status='pending_completion'")->fetchColumn();
 $activeCases      = $db->query("SELECT COUNT(*) FROM cases WHERE status='active'")->fetchColumn();
-$totalClients     = $db->query("SELECT COUNT(*) FROM users WHERE role='client' AND status='active'")->fetchColumn();
-$pendingStaff     = $db->query("SELECT COUNT(*) FROM users WHERE status='pending' AND role != 'client'")->fetchColumn();
+$totalClients     = $db->query("SELECT COUNT(*) FROM users WHERE role='client' AND is_active=1")->fetchColumn();
+$pendingStaff     = $db->query("SELECT COUNT(*) FROM users WHERE is_active=0 AND role != 'client'")->fetchColumn();
 
 // Recent complaints
 $complaints = $db->query("SELECT c.*, u.name AS client_name, u.email AS client_email FROM complaints c JOIN users u ON c.client_id=u.id ORDER BY c.created_at DESC LIMIT 8")->fetchAll();
@@ -92,7 +92,7 @@ include __DIR__ . '/../includes/header.php';
                 <div class="text-xs text-[#8e706c]"><?= sanitize($c['client_email']) ?></div>
               </td>
               <td class="max-w-[200px] truncate"><?= sanitize($c['title']) ?></td>
-              <td><span class="text-xs bg-[#f3f4f5] px-2 py-1 rounded"><?= sanitize($c['case_category'] ?? 'Umum') ?></span></td>
+              <td><span class="text-xs bg-[#f3f4f5] px-2 py-1 rounded"><?= sanitize($c['category'] ?? 'Umum') ?></span></td>
               <td><?= statusBadge($c['status']) ?></td>
               <td>
                 <a href="/legal-admin/complaint-detail.php?id=<?= $c['id'] ?>"

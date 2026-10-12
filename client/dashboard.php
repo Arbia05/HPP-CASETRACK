@@ -16,7 +16,7 @@ $unpaidInvoices = $db->prepare("SELECT COUNT(*) FROM invoices WHERE client_id=? 
 $unpaidInvoices->execute([$user['id']]); $unpaidCount = $unpaidInvoices->fetchColumn();
 
 // Recent cases
-$recentCases = $db->prepare("SELECT c.*, u.name AS lawyer_name FROM cases c LEFT JOIN users u ON c.assigned_pj_id=u.id WHERE c.client_id=? ORDER BY c.updated_at DESC LIMIT 3");
+$recentCases = $db->prepare("SELECT c.*, c.case_number AS reference_number, u.name AS lawyer_name FROM cases c LEFT JOIN users u ON c.assigned_pj_id=u.id WHERE c.client_id=? ORDER BY c.updated_at DESC LIMIT 3");
 $recentCases->execute([$user['id']]); $cases = $recentCases->fetchAll();
 
 // Recent activity (case updates)
@@ -164,11 +164,11 @@ include __DIR__ . '/../includes/sidebar.php';
             <div class="flex-1 min-w-0">
               <p class="text-sm text-[#191c1d]">
                 <span class="font-semibold"><?= sanitize($act['actor_name']) ?></span>
-                memperbarui status: <span class="font-medium text-[#800000]"><?= sanitize($act['status_label']) ?></span>
+                — <span class="font-medium text-[#800000]"><?= sanitize($act['activity_type']) ?></span>
               </p>
               <p class="text-xs text-[#5a413d] mt-0.5 truncate"><?= sanitize($act['case_title']) ?></p>
-              <?php if ($act['description_layman']): ?>
-              <p class="text-xs text-[#8e706c] mt-1 italic"><?= sanitize($act['description_layman']) ?></p>
+              <?php if ($act['description']): ?>
+              <p class="text-xs text-[#8e706c] mt-1 italic"><?= sanitize(mb_strimwidth($act['description'], 0, 120, '…')) ?></p>
               <?php endif; ?>
             </div>
             <span class="text-xs text-[#8e706c] whitespace-nowrap shrink-0"><?= timeAgo($act['created_at']) ?></span>

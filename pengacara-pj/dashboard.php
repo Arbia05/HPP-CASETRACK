@@ -5,7 +5,7 @@ requireRole('pengacara_pj');
 $user = currentUser();
 $db   = getDB();
 
-$myCases   = $db->prepare("SELECT c.*, u.name AS client_name FROM cases c JOIN users u ON c.client_id=u.id WHERE c.assigned_pj_id=? ORDER BY c.updated_at DESC");
+$myCases   = $db->prepare("SELECT c.*, c.case_number AS reference_number, u.name AS client_name FROM cases c JOIN users u ON c.client_id=u.id WHERE c.assigned_pj_id=? ORDER BY c.updated_at DESC");
 $myCases->execute([$user['id']]); $cases = $myCases->fetchAll();
 
 $activeCnt  = count(array_filter($cases, fn($c) => $c['status'] === 'active'));

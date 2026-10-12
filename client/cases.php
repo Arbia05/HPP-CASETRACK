@@ -11,7 +11,7 @@ $params = [$user['id']];
 if ($filter === 'active')  { $where .= " AND c.status IN ('active','new','on_hold')"; }
 if ($filter === 'closed')  { $where .= " AND c.status IN ('closed','won','lost')"; }
 
-$cases = $db->prepare("SELECT c.*, u.name AS lawyer_name FROM cases c LEFT JOIN users u ON c.assigned_pj_id=u.id $where ORDER BY c.updated_at DESC");
+$cases = $db->prepare("SELECT c.*, c.case_number AS reference_number, u.name AS lawyer_name FROM cases c LEFT JOIN users u ON c.assigned_pj_id=u.id $where ORDER BY c.updated_at DESC");
 $cases->execute($params);
 $allCases = $cases->fetchAll();
 

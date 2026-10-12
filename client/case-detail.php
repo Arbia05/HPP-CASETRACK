@@ -6,7 +6,7 @@ $user = currentUser();
 $db   = getDB();
 
 $id = (int)($_GET['id'] ?? 0);
-$stmt = $db->prepare("SELECT c.*, u.name AS client_name, lw.name AS lawyer_name, lw.phone AS lawyer_phone FROM cases c JOIN users u ON c.client_id=u.id LEFT JOIN users lw ON c.assigned_pj_id=lw.id WHERE c.id=? AND c.client_id=?");
+$stmt = $db->prepare("SELECT c.*, c.case_number AS reference_number, u.name AS client_name, lw.name AS lawyer_name, lw.phone AS lawyer_phone FROM cases c JOIN users u ON c.client_id=u.id LEFT JOIN users lw ON c.assigned_pj_id=lw.id WHERE c.id=? AND c.client_id=?");
 $stmt->execute([$id, $user['id']]);
 $case = $stmt->fetch();
 if (!$case) redirect('/client/cases.php');
@@ -20,7 +20,7 @@ $milestones = $db->prepare("SELECT * FROM milestones WHERE case_id=? ORDER BY du
 $milestones->execute([$id]); $mstones = $milestones->fetchAll();
 
 // Documents
-$docs = $db->prepare("SELECT * FROM documents WHERE case_id=? ORDER BY created_at DESC");
+$docs = $db->prepare("SELECT * FROM case_documents WHERE case_id=? ORDER BY created_at DESC");
 $docs->execute([$id]); $documents = $docs->fetchAll();
 
 // Invoice
@@ -122,17 +122,17 @@ $pct  = $prog[$case['status']] ?? 0;
               <div class="card-like bg-[#f8f9fa] border border-[#e1e3e4] rounded-xl p-4">
                 <div class="flex items-center justify-between gap-2 mb-2">
                   <span class="font-semibold text-sm text-[#800000] bg-[#fff1f1] px-3 py-1 rounded-full">
-                    <?= sanitize($upd['status_label']) ?>
+                    <?= sanitize($upd['activity_type']) ?>
                   </span>
                   <span class="text-xs text-[#8e706c] whitespace-nowrap"><?= timeAgo($upd['created_at']) ?></span>
                 </div>
-                <?php if ($upd['description_layman']): ?>
-                <p class="text-sm text-[#191c1d] leading-relaxed"><?= nl2br(sanitize($upd['description_layman'])) ?></p>
+                <?php if ($upd['description']): ?>
+                <p class="text-sm text-[#191c1d] leading-relaxed"><?= nl2br(sanitize($upd['description'])) ?></p>
                 <?php endif; ?>
-                <?php if ($upd['location_name']): ?>
+                <?php if ($upd['location']): ?>
                 <div class="flex items-center gap-1.5 text-xs text-[#8e706c] mt-2">
                   <span class="material-symbols-outlined text-[14px] text-[#800000]">location_on</span>
-                  <?= sanitize($upd['location_name']) ?>
+                  <?= sanitize($upd['location']) ?>
                 </div>
                 <?php endif; ?>
                 <?php if ($upd['evidence_path']): ?>

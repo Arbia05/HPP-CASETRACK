@@ -87,7 +87,7 @@ include __DIR__ . '/../includes/header.php';
         <div class="grid grid-cols-2 gap-4 mb-5">
           <div class="bg-[#f3f4f5] rounded-lg p-3">
             <p class="text-xs text-[#8e706c] uppercase tracking-wider mb-1">Kategori Kasus</p>
-            <p class="font-semibold text-sm"><?= sanitize($complaint['case_category'] ?? 'Tidak ditentukan') ?></p>
+            <p class="font-semibold text-sm"><?= sanitize($complaint['category'] ?? 'Tidak ditentukan') ?></p>
           </div>
           <div class="bg-[#f3f4f5] rounded-lg p-3">
             <p class="text-xs text-[#8e706c] uppercase tracking-wider mb-1">Ditinjau Oleh</p>
