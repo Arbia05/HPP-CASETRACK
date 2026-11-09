@@ -68,7 +68,7 @@ $currentPath  = $_SERVER['SCRIPT_NAME'];
 
   <!-- Brand -->
   <div class="px-6 pt-6 pb-5 border-b border-white/10">
-    <a href="/<?= $base ?>index.php" class="flex items-center gap-3">
+    <a href="<?= $base ?>index.php" class="flex items-center gap-3">
       <div class="w-10 h-10 rounded-xl bg-[#fed65b] flex items-center justify-center shadow">
         <span class="material-symbols-outlined text-[#800000] text-xl font-bold">gavel</span>
       </div>
@@ -87,7 +87,7 @@ $currentPath  = $_SERVER['SCRIPT_NAME'];
         $isActive = str_ends_with($currentPath, $item['url']) || str_ends_with($currentPath, str_replace('.php','',$item['url']));
       ?>
       <li>
-        <a href="/<?= $href ?>"
+        <a href="<?= $href ?>"
            class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-150 group
                   <?= $isActive
                     ? 'bg-white/15 border-l-4 border-[#fed65b] text-white font-semibold'

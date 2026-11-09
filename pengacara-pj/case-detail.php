@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('pengacara_pj');
@@ -17,7 +17,7 @@ $stmt = $db->prepare("
 $stmt->execute([$id, $user['id']]);
 $case = $stmt->fetch();
 if (!$case) {
-    redirect('/pengacara-pj/cases.php');
+    redirect('/hpp-casetrack/pengacara-pj/cases.php');
 }
 
 $error = $success = '';

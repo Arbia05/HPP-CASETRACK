@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('client');
@@ -27,7 +27,7 @@ if (isPost()) {
             $complaintId = $db->lastInsertId();
 
             // Notify legal admins
-            $admins = $db->query("SELECT id FROM users WHERE role='legal_admin' AND status='active'")->fetchAll();
+            $admins = $db->query("SELECT id FROM users WHERE role='legal_admin' AND is_active=1")->fetchAll();
             foreach ($admins as $a) {
                 createNotification($a['id'], 'Pengaduan Baru Masuk', 'Pengaduan baru dari ' . $user['name'] . ': ' . $title, 'complaint', $complaintId, 'complaint');
             }
@@ -35,7 +35,7 @@ if (isPost()) {
             // Store in session for step 2
             session_start();
             $_SESSION['complaint_id'] = $complaintId;
-            redirect('/client/new-case-step2.php');
+            redirect('/hpp-casetrack/client/new-case-step2.php');
         }
     }
 }
@@ -133,7 +133,7 @@ include __DIR__ . '/../includes/header.php';
       <div class="section-divider"></div>
 
       <div class="flex gap-3 justify-end">
-        <a href="/client/dashboard.php" class="btn-outline">Batal</a>
+        <a href="/hpp-casetrack/client/dashboard.php" class="btn-outline">Batal</a>
         <button type="submit" class="btn-primary px-8">
           Lanjutkan <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
         </button>

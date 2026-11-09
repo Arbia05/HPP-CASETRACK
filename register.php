@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/config/auth.php';
 require_once __DIR__ . '/includes/functions.php';
 
-if (isLoggedIn()) redirect('/client/dashboard.php');
+if (isLoggedIn()) redirect('/hpp-casetrack/client/dashboard.php');
 
 $error = $success = '';
 
@@ -33,18 +33,16 @@ if (isPost()) {
             $hashed  = password_hash($password, PASSWORD_DEFAULT);
             $username = strtolower(str_replace(' ', '.', $name)) . rand(10,99);
 
-            $stmt = $db->prepare("INSERT INTO users (username, email, password, role, name, phone, status, otp_code, otp_expires_at) VALUES (?,?,?,?,?,?,?,?,?)");
-            $stmt->execute([$username, $email, $hashed, 'client', $name, $phone, 'pending', $otp, $expires]);
+            // is_active=0 → akun belum aktif sampai OTP diverifikasi
+            $stmt = $db->prepare("INSERT INTO users (username, email, password, role, name, phone, is_active, otp_code, otp_expires_at) VALUES (?,?,?,?,?,?,?,?,?)");
+            $stmt->execute([$username, $email, $hashed, 'client', $name, $phone, 0, $otp, $expires]);
             $userId = $db->lastInsertId();
-
-            // Create client profile
-            $db->prepare("INSERT INTO clients (user_id) VALUES (?)")->execute([$userId]);
 
             // In a real app: send OTP via email. For demo, store in session.
             session_start();
             $_SESSION['otp_email']  = $email;
             $_SESSION['otp_code']   = $otp; // demo only
-            redirect('/otp-verify.php');
+            redirect('/hpp-casetrack/otp-verify.php');
         }
     }
 }

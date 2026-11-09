@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('legal_admin');
@@ -16,7 +16,7 @@ $stmt = $db->prepare("
 ");
 $stmt->execute([$id]);
 $case = $stmt->fetch();
-if (!$case) redirect('/legal-admin/cases.php');
+if (!$case) redirect('/hpp-casetrack/legal-admin/cases.php');
 
 $success = $error = '';
 

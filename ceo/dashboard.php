@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('ceo');
@@ -142,7 +142,7 @@ include __DIR__ . '/../includes/header.php';
           <?php endforeach; ?>
         </div>
         <div class="px-5 py-3 border-t border-[#edeeef]">
-          <a href="/ceo/cases.php" class="text-xs text-[#800000] hover:underline font-medium">Lihat Semua Kasus →</a>
+          <a href="/hpp-casetrack/ceo/cases.php" class="text-xs text-[#800000] hover:underline font-medium">Lihat Semua Kasus →</a>
         </div>
       </div>
     </div>

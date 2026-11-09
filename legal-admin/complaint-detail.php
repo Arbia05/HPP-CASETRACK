@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('legal_admin');
@@ -6,12 +6,12 @@ $user = currentUser();
 $db   = getDB();
 
 $id = (int)($_GET['id'] ?? 0);
-if (!$id) redirect('/legal-admin/complaints.php');
+if (!$id) redirect('/hpp-casetrack/legal-admin/complaints.php');
 
 $stmt = $db->prepare("SELECT c.*, u.name AS client_name, u.email AS client_email, u.phone AS client_phone FROM complaints c JOIN users u ON c.client_id=u.id WHERE c.id=?");
 $stmt->execute([$id]);
 $complaint = $stmt->fetch();
-if (!$complaint) redirect('/legal-admin/complaints.php');
+if (!$complaint) redirect('/hpp-casetrack/legal-admin/complaints.php');
 
 $error = $success = '';
 
@@ -38,7 +38,7 @@ if (isPost()) {
         if ($newStatus === 'verified') {
             $success = 'Pengaduan berhasil diverifikasi. Klien akan diminta melengkapi data.';
         } else {
-            redirect('/legal-admin/complaints.php?msg=updated');
+            redirect('/hpp-casetrack/legal-admin/complaints.php?msg=updated');
         }
 
         // Reload complaint
@@ -58,9 +58,9 @@ include __DIR__ . '/../includes/header.php';
 
   <!-- Breadcrumb -->
   <nav class="flex items-center gap-2 text-sm text-[#8e706c] mb-6">
-    <a href="/legal-admin/dashboard.php" class="hover:text-[#800000]">Dashboard</a>
+    <a href="/hpp-casetrack/legal-admin/dashboard.php" class="hover:text-[#800000]">Dashboard</a>
     <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-    <a href="/legal-admin/complaints.php" class="hover:text-[#800000]">Pengaduan</a>
+    <a href="/hpp-casetrack/legal-admin/complaints.php" class="hover:text-[#800000]">Pengaduan</a>
     <span class="material-symbols-outlined text-[16px]">chevron_right</span>
     <span class="text-[#191c1d] font-medium">Detail Pengaduan</span>
   </nav>

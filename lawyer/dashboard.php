@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('lawyer');
@@ -68,7 +68,7 @@ include __DIR__ . '/../includes/header.php';
     <div class="lg:col-span-2 card overflow-hidden">
       <div class="px-6 py-4 border-b border-[#e2bfb9] flex items-center justify-between">
         <h2 class="font-bold text-[#191c1d]">Kasus Saya</h2>
-        <a href="/lawyer/cases.php" class="text-sm text-[#800000] hover:underline font-medium">Semua →</a>
+        <a href="/hpp-casetrack/lawyer/cases.php" class="text-sm text-[#800000] hover:underline font-medium">Semua →</a>
       </div>
       <div class="divide-y divide-[#edeeef]">
         <?php if (empty($cases)): ?>
@@ -84,7 +84,7 @@ include __DIR__ . '/../includes/header.php';
             <p class="font-semibold text-sm truncate group-hover:text-[#800000] transition-colors"><?= sanitize($c['title']) ?></p>
             <p class="text-xs text-[#5a413d]">Klien: <?= sanitize($c['client_name']) ?></p>
           </div>
-          <a href="/lawyer/field-update.php?case_id=<?= $c['id'] ?>" class="btn-primary btn-sm shrink-0">
+          <a href="/hpp-casetrack/lawyer/field-update.php?case_id=<?= $c['id'] ?>" class="btn-primary btn-sm shrink-0">
             <span class="material-symbols-outlined text-[16px]">my_location</span>
             Update
           </a>

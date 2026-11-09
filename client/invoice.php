@@ -25,7 +25,7 @@ if (isPost() && isset($_POST['invoice_id'])) {
                ->execute([$upload['path'], $invId, $user['id']]);
 
             // Notify finance
-            $finances = $db->query("SELECT id FROM users WHERE role='finance' AND status='active'")->fetchAll();
+            $finances = $db->query("SELECT id FROM users WHERE role='finance' AND is_active=1")->fetchAll();
             foreach ($finances as $f) {
                 createNotification($f['id'], 'Bukti Pembayaran Masuk', $user['name'] . ' mengunggah bukti pembayaran invoice.', 'payment', $invId, 'invoice');
             }

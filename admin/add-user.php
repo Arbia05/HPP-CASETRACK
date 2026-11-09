@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('admin');
@@ -32,8 +32,9 @@ if (isPost()) {
         } else {
             $username = strtolower(str_replace(' ', '.', $name)) . rand(10,99);
             $hashed   = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $db->prepare("INSERT INTO users (username, email, password, role, name, phone, status, email_verified_at) VALUES (?,?,?,?,?,?,'active',NOW())");
-            $stmt->execute([$username, $email, $hashed, $role, $name, $phone]);
+            $is_active = (int)($_POST['is_active'] ?? 1);
+            $stmt = $db->prepare("INSERT INTO users (username, email, password, role, name, phone, is_active, email_verified_at) VALUES (?,?,?,?,?,?,?,NOW())");
+            $stmt->execute([$username, $email, $hashed, $role, $name, $phone, $is_active]);
             $newUserId = $db->lastInsertId();
 
             // Create lawyer profile if needed
@@ -60,9 +61,9 @@ include __DIR__ . '/../includes/header.php';
 <div class="p-6 md:p-8 max-w-2xl mx-auto">
 
   <nav class="flex items-center gap-2 text-sm text-[#8e706c] mb-6">
-    <a href="/admin/dashboard.php" class="hover:text-[#800000]">Dashboard</a>
+    <a href="/hpp-casetrack/admin/dashboard.php" class="hover:text-[#800000]">Dashboard</a>
     <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-    <a href="/admin/users.php" class="hover:text-[#800000]">Pengguna</a>
+    <a href="/hpp-casetrack/admin/users.php" class="hover:text-[#800000]">Pengguna</a>
     <span class="material-symbols-outlined text-[16px]">chevron_right</span>
     <span class="text-[#191c1d] font-medium">Tambah Baru</span>
   </nav>
@@ -143,12 +144,12 @@ include __DIR__ . '/../includes/header.php';
           </div>
         </div>
         <div>
+          <div>
           <label class="form-label">Status Akun</label>
           <div class="relative">
-            <select name="status" class="form-input appearance-none pr-10">
-              <option value="active" selected>Aktif</option>
-              <option value="pending">Pending Konfirmasi</option>
-              <option value="inactive">Nonaktif</option>
+            <select name="is_active" class="form-input appearance-none pr-10">
+              <option value="1" selected>Aktif</option>
+              <option value="0">Nonaktif</option>
             </select>
             <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[#8e706c] pointer-events-none">expand_more</span>
           </div>
@@ -158,7 +159,7 @@ include __DIR__ . '/../includes/header.php';
       <div class="section-divider"></div>
 
       <div class="flex gap-3 justify-end">
-        <a href="/admin/users.php" class="btn-outline">Batal</a>
+        <a href="/hpp-casetrack/admin/users.php" class="btn-outline">Batal</a>
         <button type="submit" class="btn-primary px-8">
           <span class="material-symbols-outlined text-[18px]">person_add</span>
           Buat Akun

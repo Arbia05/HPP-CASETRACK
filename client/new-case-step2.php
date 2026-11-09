@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('client');
@@ -7,7 +7,7 @@ $db   = getDB();
 
 session_start();
 $complaintId = $_SESSION['complaint_id'] ?? null;
-if (!$complaintId) redirect('/client/new-case-step1.php');
+if (!$complaintId) redirect('/hpp-casetrack/client/new-case-step1.php');
 
 $error = '';
 if (isPost()) {
@@ -34,7 +34,7 @@ if (isPost()) {
 
     if ($errors) { $error = implode(', ', $errors); }
     else {
-        redirect('/client/new-case-step3.php');
+        redirect('/hpp-casetrack/client/new-case-step3.php');
     }
 }
 
@@ -102,7 +102,7 @@ include __DIR__ . '/../includes/header.php';
 
     <div class="section-divider"></div>
     <div class="flex gap-3 justify-between">
-      <a href="/client/new-case-step1.php" class="btn-outline">
+      <a href="/hpp-casetrack/client/new-case-step1.php" class="btn-outline">
         <span class="material-symbols-outlined text-[18px]">arrow_back</span> Kembali
       </a>
       <button type="submit" class="btn-primary px-8">

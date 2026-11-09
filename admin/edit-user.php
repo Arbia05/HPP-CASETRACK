@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('admin');
@@ -6,12 +6,12 @@ $user = currentUser();
 $db   = getDB();
 
 $id = (int)($_GET['id'] ?? 0);
-if (!$id) redirect('/admin/users.php');
+if (!$id) redirect('/hpp-casetrack/admin/users.php');
 
 $stmt = $db->prepare("SELECT * FROM users WHERE id=?");
 $stmt->execute([$id]);
 $target = $stmt->fetch();
-if (!$target) redirect('/admin/users.php');
+if (!$target) redirect('/hpp-casetrack/admin/users.php');
 
 $error = $success = '';
 

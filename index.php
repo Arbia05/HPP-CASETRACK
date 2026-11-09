@@ -169,7 +169,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <?php
-      $lawyers = $db->query("SELECT u.*, lw.specialization, lw.years_experience, lw.bio FROM users u JOIN lawyers lw ON u.id=lw.user_id WHERE u.status='active' LIMIT 6")->fetchAll();
+      $lawyers = $db->query("SELECT u.*, lw.specialization, lw.years_experience, lw.bio FROM users u JOIN lawyers lw ON u.id=lw.user_id WHERE u.is_active=1 LIMIT 6")->fetchAll();
       foreach ($lawyers as $lw):
       ?>
       <div class="lawyer-card">

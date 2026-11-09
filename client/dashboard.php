@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('client');
@@ -47,7 +47,7 @@ include __DIR__ . '/../includes/sidebar.php';
       <p class="text-sm text-[#5a413d] mt-1">Ringkasan perkara hukum dan aktivitas terbaru Anda.</p>
     </div>
     <div class="flex gap-3">
-      <a href="/client/new-case-step1.php" class="btn-gold">
+      <a href="/hpp-casetrack/client/new-case-step1.php" class="btn-gold">
         <span class="material-symbols-outlined text-[18px]">add_circle</span>
         Ajukan Kasus Baru
       </a>
@@ -102,7 +102,7 @@ include __DIR__ . '/../includes/sidebar.php';
         </div>
         <h3 class="text-xl font-bold text-[#191c1d] mb-2">Belum ada kasus terdaftar</h3>
         <p class="text-sm text-[#5a413d] mb-6">Ajukan kasus hukum Anda dan tim HPP Law Office siap membantu.</p>
-        <a href="/client/new-case-step1.php" class="btn-primary">
+        <a href="/hpp-casetrack/client/new-case-step1.php" class="btn-primary">
           <span class="material-symbols-outlined text-[18px]">add_circle</span>
           Ajukan Kasus Pertama
         </a>
@@ -112,7 +112,7 @@ include __DIR__ . '/../includes/sidebar.php';
       <div class="card overflow-hidden">
         <div class="px-6 py-4 border-b border-[#e2bfb9] flex items-center justify-between">
           <h2 class="font-bold text-[#191c1d]">Kasus Aktif Saya</h2>
-          <a href="/client/cases.php" class="text-sm text-[#800000] hover:underline font-medium flex items-center gap-1">
+          <a href="/hpp-casetrack/client/cases.php" class="text-sm text-[#800000] hover:underline font-medium flex items-center gap-1">
             Lihat Semua <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
           </a>
         </div>
@@ -131,7 +131,7 @@ include __DIR__ . '/../includes/sidebar.php';
                   <?php if ($case['lawyer_name']): ?> · PJ: <?= sanitize($case['lawyer_name']) ?><?php endif; ?>
                 </p>
               </div>
-              <a href="/client/case-detail.php?id=<?= $case['id'] ?>" class="text-[#800000] hover:bg-[#fff1f1] p-1.5 rounded-lg transition-colors shrink-0">
+              <a href="/hpp-casetrack/client/case-detail.php?id=<?= $case['id'] ?>" class="text-[#800000] hover:bg-[#fff1f1] p-1.5 rounded-lg transition-colors shrink-0">
                 <span class="material-symbols-outlined text-[20px]">arrow_forward_ios</span>
               </a>
             </div>
@@ -199,7 +199,7 @@ include __DIR__ . '/../includes/sidebar.php';
               <p class="text-sm font-semibold text-[#191c1d]">Invoice <?= sanitize($inv['invoice_number']) ?></p>
               <p class="text-xs text-[#5a413d] mt-0.5"><?= sanitize($inv['case_title']) ?></p>
               <p class="text-sm font-bold text-[#800000] mt-1"><?= formatRupiah($inv['amount']) ?></p>
-              <a href="/client/invoice.php?id=<?= $inv['id'] ?>" class="text-xs text-[#800000] hover:underline font-medium mt-2 inline-block">
+              <a href="/hpp-casetrack/client/invoice.php?id=<?= $inv['id'] ?>" class="text-xs text-[#800000] hover:underline font-medium mt-2 inline-block">
                 <?= $inv['status'] === 'unpaid' ? 'Bayar Sekarang →' : 'Lihat Status →' ?>
               </a>
             </div>

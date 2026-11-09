@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('client');
@@ -7,17 +7,17 @@ $db   = getDB();
 
 session_start();
 $complaintId = $_SESSION['complaint_id'] ?? null;
-if (!$complaintId) redirect('/client/new-case-step1.php');
+if (!$complaintId) redirect('/hpp-casetrack/client/new-case-step1.php');
 
 $complaint = $db->prepare("SELECT * FROM complaints WHERE id=? AND client_id=?");
 $complaint->execute([$complaintId, $user['id']]);
 $comp = $complaint->fetch();
-if (!$comp) redirect('/client/new-case-step1.php');
+if (!$comp) redirect('/hpp-casetrack/client/new-case-step1.php');
 
 if (isPost()) {
     // Submission confirmed — clear session
     unset($_SESSION['complaint_id']);
-    redirect('/client/cases.php?submitted=1');
+    redirect('/hpp-casetrack/client/cases.php?submitted=1');
 }
 
 $pageTitle = 'Ajukan Kasus — Konfirmasi';
@@ -93,7 +93,7 @@ include __DIR__ . '/../includes/header.php';
 
   <form method="POST">
     <div class="flex gap-3 justify-between">
-      <a href="/client/new-case-step2.php" class="btn-outline">
+      <a href="/hpp-casetrack/client/new-case-step2.php" class="btn-outline">
         <span class="material-symbols-outlined text-[18px]">arrow_back</span> Kembali
       </a>
       <button type="submit" class="btn-primary px-8 py-3 text-base">

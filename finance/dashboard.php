@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('finance');
@@ -52,7 +52,7 @@ include __DIR__ . '/../includes/header.php';
   <div class="card overflow-hidden">
     <div class="px-6 py-4 border-b border-[#e2bfb9] flex items-center justify-between">
       <h2 class="font-bold text-[#191c1d]">Invoice Terbaru</h2>
-      <a href="/finance/invoices.php" class="text-sm text-[#800000] hover:underline font-medium">Kelola Semua →</a>
+      <a href="/hpp-casetrack/finance/invoices.php" class="text-sm text-[#800000] hover:underline font-medium">Kelola Semua →</a>
     </div>
     <div class="overflow-x-auto">
       <table class="data-table">
@@ -72,10 +72,10 @@ include __DIR__ . '/../includes/header.php';
             <td><?= statusBadge($inv['status']) ?></td>
             <td>
               <?php if ($inv['status'] === 'pending_verification'): ?>
-              <a href="/finance/invoice-detail.php?id=<?= $inv['id'] ?>"
+              <a href="/hpp-casetrack/finance/invoice-detail.php?id=<?= $inv['id'] ?>"
                 class="btn-primary btn-sm">Verifikasi</a>
               <?php else: ?>
-              <a href="/finance/invoice-detail.php?id=<?= $inv['id'] ?>"
+              <a href="/hpp-casetrack/finance/invoice-detail.php?id=<?= $inv['id'] ?>"
                 class="btn-outline btn-sm">Detail</a>
               <?php endif; ?>
             </td>

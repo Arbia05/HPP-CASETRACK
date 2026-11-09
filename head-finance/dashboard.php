@@ -25,7 +25,7 @@ if (isPost()) {
     $msg = $action === 'approve' ? 'Reimbursement Anda sebesar ' . formatRupiah($rd['amount']) . ' disetujui.' : 'Reimbursement Anda ditolak. Catatan: ' . $notes;
     createNotification($rd['submitted_by'], 'Status Reimbursement', $msg, 'reimbursement', $rid, 'reimbursement');
     $success = 'Reimbursement berhasil ' . ($action === 'approve' ? 'disetujui' : 'ditolak') . '.';
-    header('Location: /head-finance/reimbursement-approval.php?msg=' . $action);
+    header('Location: /hpp-casetrack/head-finance/reimbursement-approval.php?msg=' . $action);
     exit;
 }
 
@@ -85,7 +85,7 @@ include __DIR__ . '/../includes/header.php';
   <div class="card overflow-hidden">
     <div class="px-6 py-4 border-b border-[#e2bfb9] flex items-center justify-between">
       <h2 class="font-bold text-[#191c1d]">Daftar Pengajuan Reimbursement</h2>
-      <a href="/head-finance/reimbursement-approval.php" class="text-sm text-[#800000] hover:underline font-medium">Kelola Semua →</a>
+      <a href="/hpp-casetrack/head-finance/reimbursement-approval.php" class="text-sm text-[#800000] hover:underline font-medium">Kelola Semua →</a>
     </div>
     <div class="overflow-x-auto">
       <table class="data-table">

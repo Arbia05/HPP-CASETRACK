@@ -64,8 +64,8 @@ $roleNames = ROLE_NAMES;
       <div class="px-6 py-4 border-b border-[#e2bfb9] flex items-center justify-between">
         <h2 class="font-bold text-[#191c1d]">Pengguna Terbaru</h2>
         <div class="flex gap-2">
-          <a href="/admin/users.php" class="btn-outline btn-sm">Lihat Semua</a>
-          <a href="/admin/add-user.php" class="btn-primary btn-sm">
+          <a href="<?= $base ?>admin/users.php" class="btn-outline btn-sm">Lihat Semua</a>
+          <a href="<?= $base ?>admin/add-user.php" class="btn-primary btn-sm">
             <span class="material-symbols-outlined text-[16px]">person_add</span>
             Tambah
           </a>
@@ -97,22 +97,27 @@ $roleNames = ROLE_NAMES;
               </td>
               <td>
                 <?php
-                $statusClasses = ['active'=>'text-green-700 bg-green-50','inactive'=>'text-gray-700 bg-gray-100','pending'=>'text-yellow-700 bg-yellow-50'];
-                $sc = $statusClasses[$u['status']] ?? 'bg-gray-100';
-                $statusLabels = ['active'=>'Aktif','inactive'=>'Nonaktif','pending'=>'Pending'];
+                // users table uses is_active (tinyint) + email_verified_at, no 'status' column
+                if (!$u['is_active']) {
+                    $sc = 'text-gray-700 bg-gray-100'; $sl = 'Nonaktif';
+                } elseif (empty($u['email_verified_at'])) {
+                    $sc = 'text-yellow-700 bg-yellow-50'; $sl = 'Pending';
+                } else {
+                    $sc = 'text-green-700 bg-green-50'; $sl = 'Aktif';
+                }
                 ?>
                 <span class="text-xs font-semibold px-2 py-1 rounded <?= $sc ?>">
-                  <?= $statusLabels[$u['status']] ?? $u['status'] ?>
+                  <?= $sl ?>
                 </span>
               </td>
               <td class="text-xs text-[#8e706c]"><?= formatDate($u['created_at'], 'd M Y') ?></td>
               <td>
                 <div class="flex gap-1">
-                  <a href="/admin/edit-user.php?id=<?= $u['id'] ?>" class="p-1.5 text-[#5a413d] hover:text-[#800000] hover:bg-[#fff1f1] rounded-lg transition-colors" title="Edit">
+                  <a href="<?= $base ?>admin/edit-user.php?id=<?= $u['id'] ?>" class="p-1.5 text-[#5a413d] hover:text-[#800000] hover:bg-[#fff1f1] rounded-lg transition-colors" title="Edit">
                     <span class="material-symbols-outlined text-[18px]">edit</span>
                   </a>
-                  <?php if ($u['status'] === 'pending'): ?>
-                  <a href="/admin/activate-user.php?id=<?= $u['id'] ?>" class="p-1.5 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Aktifkan"
+                  <?php if (!$u['is_active'] || empty($u['email_verified_at'])): ?>
+                  <a href="<?= $base ?>admin/activate-user.php?id=<?= $u['id'] ?>" class="p-1.5 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Aktifkan"
                     onclick="return confirm('Aktifkan pengguna ini?')">
                     <span class="material-symbols-outlined text-[18px]">check_circle</span>
                   </a>
@@ -151,9 +156,9 @@ $roleNames = ROLE_NAMES;
         <h2 class="font-bold text-[#191c1d] mb-4">Aksi Cepat</h2>
         <div class="space-y-2">
           <?php foreach ([
-            ['/admin/add-user.php','Tambah User Baru','person_add'],
-            ['/admin/users.php?filter=pending','Aktivasi User Pending','pending_actions'],
-            ['/admin/settings.php','Pengaturan Sistem','settings'],
+            [$base.'admin/add-user.php','Tambah User Baru','person_add'],
+            [$base.'admin/users.php?filter=pending','Aktivasi User Pending','pending_actions'],
+            [$base.'admin/settings.php','Pengaturan Sistem','settings'],
           ] as [$url,$label,$icon]): ?>
           <a href="<?= $url ?>" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#f3f4f5] transition-colors group">
             <span class="material-symbols-outlined text-[#800000] text-[20px]"><?= $icon ?></span>

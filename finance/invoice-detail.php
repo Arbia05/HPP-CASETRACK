@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('finance');
@@ -6,12 +6,12 @@ $user = currentUser();
 $db   = getDB();
 
 $id = (int)($_GET['id'] ?? 0);
-if (!$id) redirect('/finance/invoices.php');
+if (!$id) redirect('/hpp-casetrack/finance/invoices.php');
 
 $stmt = $db->prepare("SELECT i.*, u.name AS client_name, u.email AS client_email, u.phone AS client_phone, c.title AS case_title, c.case_number AS reference_number FROM invoices i JOIN users u ON i.client_id=u.id JOIN cases c ON i.case_id=c.id WHERE i.id=?");
 $stmt->execute([$id]);
 $inv = $stmt->fetch();
-if (!$inv) redirect('/finance/invoices.php');
+if (!$inv) redirect('/hpp-casetrack/finance/invoices.php');
 
 $error = $success = '';
 
@@ -42,9 +42,9 @@ include __DIR__ . '/../includes/header.php';
 <div class="p-6 md:p-8 max-w-4xl mx-auto">
 
   <nav class="flex items-center gap-2 text-sm text-[#8e706c] mb-6">
-    <a href="/finance/dashboard.php" class="hover:text-[#800000]">Dashboard</a>
+    <a href="/hpp-casetrack/finance/dashboard.php" class="hover:text-[#800000]">Dashboard</a>
     <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-    <a href="/finance/invoices.php" class="hover:text-[#800000]">Invoice</a>
+    <a href="/hpp-casetrack/finance/invoices.php" class="hover:text-[#800000]">Invoice</a>
     <span class="material-symbols-outlined text-[16px]">chevron_right</span>
     <span class="text-[#191c1d] font-medium"><?= sanitize($inv['invoice_number']) ?></span>
   </nav>

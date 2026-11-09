@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('legal_admin');
@@ -109,7 +109,7 @@ include __DIR__ . '/../includes/header.php';
             <td><?= statusBadge($c['status']) ?></td>
             <td class="text-xs text-[#8e706c] whitespace-nowrap"><?= formatDate($c['created_at'], 'd M Y') ?></td>
             <td class="text-center">
-              <a href="/legal-admin/complaint-detail.php?id=<?= $c['id'] ?>"
+              <a href="/hpp-casetrack/legal-admin/complaint-detail.php?id=<?= $c['id'] ?>"
                 class="btn-outline btn-sm">
                 <span class="material-symbols-outlined text-[16px]">open_in_new</span>
                 Tinjau

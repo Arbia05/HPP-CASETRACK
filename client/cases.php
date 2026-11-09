@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('client');
@@ -34,7 +34,7 @@ include __DIR__ . '/../includes/header.php';
       <h1>Kasus Saya</h1>
       <p>Daftar seluruh perkara hukum yang Anda daftarkan.</p>
     </div>
-    <a href="/client/new-case-step1.php" class="btn-gold shrink-0">
+    <a href="/hpp-casetrack/client/new-case-step1.php" class="btn-gold shrink-0">
       <span class="material-symbols-outlined text-[18px]">add_circle</span>
       Ajukan Kasus Baru
     </a>
@@ -62,7 +62,7 @@ include __DIR__ . '/../includes/header.php';
     <span class="material-symbols-outlined text-5xl text-[#e1e3e4] block mb-4">folder_open</span>
     <h3 class="text-xl font-bold text-[#191c1d] mb-2">Belum ada kasus</h3>
     <p class="text-sm text-[#5a413d] mb-6">Ajukan kasus hukum Anda untuk mulai dipantau.</p>
-    <a href="/client/new-case-step1.php" class="btn-primary">Ajukan Kasus Pertama</a>
+    <a href="/hpp-casetrack/client/new-case-step1.php" class="btn-primary">Ajukan Kasus Pertama</a>
   </div>
   <?php else: ?>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -113,7 +113,7 @@ include __DIR__ . '/../includes/header.php';
         </div>
       </div>
 
-      <a href="/client/case-detail.php?id=<?= $c['id'] ?>"
+      <a href="/hpp-casetrack/client/case-detail.php?id=<?= $c['id'] ?>"
         class="flex items-center justify-center gap-2 w-full py-2 border border-[#e2bfb9] rounded-lg text-sm font-medium text-[#800000] hover:bg-[#fff1f1] transition-colors">
         <span class="material-symbols-outlined text-[18px]">visibility</span>
         Lihat Detail Kasus

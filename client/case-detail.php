@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('client');
@@ -9,7 +9,7 @@ $id = (int)($_GET['id'] ?? 0);
 $stmt = $db->prepare("SELECT c.*, c.case_number AS reference_number, u.name AS client_name, lw.name AS lawyer_name, lw.phone AS lawyer_phone FROM cases c JOIN users u ON c.client_id=u.id LEFT JOIN users lw ON c.assigned_pj_id=lw.id WHERE c.id=? AND c.client_id=?");
 $stmt->execute([$id, $user['id']]);
 $case = $stmt->fetch();
-if (!$case) redirect('/client/cases.php');
+if (!$case) redirect('/hpp-casetrack/client/cases.php');
 
 // Timeline updates
 $updates = $db->prepare("SELECT cu.*, u.name AS actor_name, u.role AS actor_role FROM case_activities cu JOIN users u ON cu.user_id=u.id WHERE cu.case_id=? ORDER BY cu.created_at DESC");
@@ -47,9 +47,9 @@ $pct  = $prog[$case['status']] ?? 0;
 
   <!-- Breadcrumb -->
   <nav class="flex items-center gap-2 text-sm text-[#8e706c] mb-6">
-    <a href="/client/dashboard.php" class="hover:text-[#800000]">Dashboard</a>
+    <a href="/hpp-casetrack/client/dashboard.php" class="hover:text-[#800000]">Dashboard</a>
     <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-    <a href="/client/cases.php" class="hover:text-[#800000]">Kasus Saya</a>
+    <a href="/hpp-casetrack/client/cases.php" class="hover:text-[#800000]">Kasus Saya</a>
     <span class="material-symbols-outlined text-[16px]">chevron_right</span>
     <span class="text-[#191c1d] font-medium truncate max-w-[200px]"><?= sanitize($case['title']) ?></span>
   </nav>
@@ -91,7 +91,7 @@ $pct  = $prog[$case['status']] ?? 0;
         <p class="text-sm text-red-600">Tagihan sebesar <strong><?= formatRupiah($inv['amount']) ?></strong> jatuh tempo <?= formatDate($inv['due_date']) ?></p>
       </div>
     </div>
-    <a href="/client/invoice.php?id=<?= $inv['id'] ?>" class="btn-primary bg-red-600 hover:bg-red-700 shrink-0">
+    <a href="/hpp-casetrack/client/invoice.php?id=<?= $inv['id'] ?>" class="btn-primary bg-red-600 hover:bg-red-700 shrink-0">
       Bayar Sekarang
     </a>
   </div>
@@ -271,7 +271,7 @@ $pct  = $prog[$case['status']] ?? 0;
           <?= statusBadge($inv['status']) ?>
           <p class="text-2xl font-extrabold text-[#191c1d] mt-3"><?= formatRupiah($inv['amount']) ?></p>
           <p class="text-xs text-[#8e706c] mt-1"><?= sanitize($inv['invoice_number']) ?></p>
-          <a href="/client/invoice.php?id=<?= $inv['id'] ?>" class="btn-outline w-full justify-center mt-4 text-xs py-2">
+          <a href="/hpp-casetrack/client/invoice.php?id=<?= $inv['id'] ?>" class="btn-outline w-full justify-center mt-4 text-xs py-2">
             Lihat Invoice
           </a>
         </div>

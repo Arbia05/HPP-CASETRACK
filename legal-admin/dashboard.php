@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('legal_admin');
@@ -34,7 +34,7 @@ include __DIR__ . '/../includes/header.php';
       <h1 class="text-3xl font-bold text-[#191c1d]">Dashboard</h1>
       <p class="text-sm text-[#5a413d] mt-1">Kelola pengaduan masuk dan perkara aktif.</p>
     </div>
-    <a href="/legal-admin/complaints.php" class="btn-primary">
+    <a href="/hpp-casetrack/legal-admin/complaints.php" class="btn-primary">
       <span class="material-symbols-outlined text-[18px]">inbox</span>
       Lihat Semua Pengaduan
     </a>
@@ -68,7 +68,7 @@ include __DIR__ . '/../includes/header.php';
     <div class="lg:col-span-2 card overflow-hidden">
       <div class="px-6 py-4 border-b border-[#e2bfb9] flex items-center justify-between">
         <h2 class="font-bold text-[#191c1d]">Pengaduan Masuk Terbaru</h2>
-        <a href="/legal-admin/complaints.php" class="text-sm text-[#800000] hover:underline font-medium">Lihat Semua →</a>
+        <a href="/hpp-casetrack/legal-admin/complaints.php" class="text-sm text-[#800000] hover:underline font-medium">Lihat Semua →</a>
       </div>
       <div class="overflow-x-auto">
         <table class="data-table">
@@ -95,7 +95,7 @@ include __DIR__ . '/../includes/header.php';
               <td><span class="text-xs bg-[#f3f4f5] px-2 py-1 rounded"><?= sanitize($c['category'] ?? 'Umum') ?></span></td>
               <td><?= statusBadge($c['status']) ?></td>
               <td>
-                <a href="/legal-admin/complaint-detail.php?id=<?= $c['id'] ?>"
+                <a href="/hpp-casetrack/legal-admin/complaint-detail.php?id=<?= $c['id'] ?>"
                   class="inline-flex items-center gap-1 text-xs text-[#800000] hover:underline font-medium">
                   Review <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
                 </a>
@@ -136,7 +136,7 @@ include __DIR__ . '/../includes/header.php';
           </div>
           <?php endforeach; ?>
           <div class="px-5 py-3">
-            <a href="/legal-admin/schedule.php" class="text-xs text-[#800000] hover:underline font-medium">Lihat Semua Jadwal →</a>
+            <a href="/hpp-casetrack/legal-admin/schedule.php" class="text-xs text-[#800000] hover:underline font-medium">Lihat Semua Jadwal →</a>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 requireRole('pengacara_pj');
@@ -30,7 +30,7 @@ include __DIR__ . '/../includes/header.php';
       <h1 class="text-3xl font-bold text-[#191c1d]">Dashboard Saya</h1>
       <p class="text-sm text-[#5a413d] mt-1">Overview kasus yang Anda pimpin dan aktivitas tim.</p>
     </div>
-    <a href="/pengacara-pj/cases.php" class="btn-primary">
+    <a href="/hpp-casetrack/pengacara-pj/cases.php" class="btn-primary">
       <span class="material-symbols-outlined text-[18px]">folder_shared</span>
       Kelola Semua Kasus
     </a>
@@ -100,7 +100,7 @@ include __DIR__ . '/../includes/header.php';
             <p class="text-xs text-[#5a413d]">Klien: <?= sanitize($c['client_name']) ?></p>
           </div>
           <div class="flex gap-2 shrink-0">
-            <a href="/pengacara-pj/case-detail.php?id=<?= $c['id'] ?>" class="btn-primary btn-sm">
+            <a href="/hpp-casetrack/pengacara-pj/case-detail.php?id=<?= $c['id'] ?>" class="btn-primary btn-sm">
               Kelola
             </a>
           </div>

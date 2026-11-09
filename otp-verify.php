@@ -1,11 +1,11 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/config/auth.php';
 require_once __DIR__ . '/includes/functions.php';
 
 session_start();
 $email = $_SESSION['otp_email'] ?? '';
 $demoOtp = $_SESSION['otp_code'] ?? '';
-if (!$email) redirect('/register.php');
+if (!$email) redirect('/hpp-casetrack/register.php');
 
 $error = $success = '';
 
@@ -18,9 +18,9 @@ if (isPost()) {
     if (!$user) {
         $error = 'Kode OTP tidak valid atau sudah kadaluarsa.';
     } else {
-        $db->prepare("UPDATE users SET status='active', email_verified_at=NOW(), otp_code=NULL WHERE id=?")->execute([$user['id']]);
+        $db->prepare("UPDATE users SET is_active=1, email_verified_at=NOW(), otp_code=NULL WHERE id=?")->execute([$user['id']]);
         unset($_SESSION['otp_email'], $_SESSION['otp_code']);
-        redirect('/login.php?verified=1');
+        redirect('/hpp-casetrack/login.php?verified=1');
     }
 }
 ?>
